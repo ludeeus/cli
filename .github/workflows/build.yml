@@ -12,23 +12,8 @@ env:
   GOLANG_VERSION: "1.15"
 
 jobs:
-  init:
-    name: Initialize
-    runs-on: ubuntu-latest
-    outputs:
-      architectures: ${{ steps.info.outputs.architectures }}
-      version: ${{ steps.version.outputs.version }}
-    steps:
-    - name: Checkout the repository
-      uses: actions/checkout@v2
-
-    - name: Get version
-      id: version
-      uses: home-assistant/actions/helpers/version@master
-
   build:
     name: Build ${{ matrix.variant.name }}
-    needs: init
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -57,6 +42,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: "${{ github.workspace }}${{ matrix.variant.name }}"
+        asset_path: "${{ github.workspace }}/${{ matrix.variant.name }}"
         asset_name: ${{ matrix.variant.name }}
         asset_content_type: application/zip
