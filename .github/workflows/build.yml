@@ -44,4 +44,4 @@ jobs:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: "${{ github.workspace }}/${{ matrix.variant.name }}"
         asset_name: ${{ matrix.variant.name }}
-        asset_content_type: application/zip
+        asset_content_type: application/x-binary
